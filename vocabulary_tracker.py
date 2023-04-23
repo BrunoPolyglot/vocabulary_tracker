@@ -8,11 +8,11 @@ lang = input("choose a language: \ng__German\ns__swedish\ni__Italian\nv__Vietnam
 #German
 if lang == "g":
     #opening the files
-    option = input("|-------------------------------|"
-                 "\n|_type|___choose one option:____|"
-                 "\n|__c__|____count all words______|"
-                 "\n|__w__|__count unkown words_____|"
-                 "\n|__r__|___save known words______|")
+    option = input("|---------------------------|"
+                 "\n|_type|___FILE OPTIONS______|"
+                 "\n|__c__|___count all words___|"
+                 "\n|__w__|__count unkown words_|"
+                 "\n|__r__|___save known words__|")
 
     with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
 
