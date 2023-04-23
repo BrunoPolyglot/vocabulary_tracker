@@ -16,7 +16,32 @@ if lang == "g":
 
     with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
 
+        if option == "c":
+
+            
+
+            #open a file
+
+            word_count= {}
+            filename = input("Enter name of input file: ")
+            inputfile = open("~/vocabulary_tracker/" + filename)
+
+
+            read_file = inputfile.read()
+            file_list = read_file.split()
+            for line in file_list:
+                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
+                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                if line in word_count:
+                    word_count[line] += 1
+                else:
+                    word_count[line] = 1
+            sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+            print(sorted_word_count)
+
+
         if option == "r":
+                
             
                 #lists
                 clean_list = list()
@@ -95,28 +120,7 @@ if lang == "g":
                     else:
                         break
 
-        if option == "c":
-
-            
-
-            #open a file
-
-            word_count= {}
-            filename = input("Enter name of input file: ")
-            inputfile = open("/home/bruno/projects/languages/" + filename)
-
-
-            read_file = inputfile.read()
-            file_list = read_file.split()
-            for line in file_list:
-                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
-                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                if line in word_count:
-                    word_count[line] += 1
-                else:
-                    word_count[line] = 1
-            sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
-            print(sorted_word_count)
+        
         if option == "w":
             count= collections.defaultdict(int)
             read_vocab = vocab.read()
