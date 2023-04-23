@@ -3,7 +3,24 @@ from itertools import zip_longest
 import binascii
 import collections
 
-lang = input("choose a language: \ng__German\ns__swedish\ni__Italian\nv__Vietnamese\nd__database information:")
+
+#options
+lang = input("|--------------------------------|"
+         "\n|_Type_|__choose_a_language:_____|"
+         "\n|__g___|_______German____________|"
+         "\n|__s___|_______swedish___________|"
+         "\n|__i___|_______Italian___________|"
+         "\n|__f___|_______french____________|"
+         "\n|__s___|_______spanish___________|"
+         "\n|__p___|_______portuguese________|"
+         "\n|__e___|_______english___________|"
+         "\n|--------------------------------|"
+         "\n|______|____INFORMATION__________|"
+         "\n|___d__|______database___________|"
+         "\n|___u__|______unkown words_______|"
+         "\n|--------------------------------|"
+         "\n"
+         "\n Please type the letter of your choice:\n")
 
 #German
 if lang == "g":
@@ -35,7 +52,7 @@ if lang == "g":
                 new_vocab_split = read_new_vocab.split()
 
 
-                #open a file
+                #open a fileg
 
 
                 filename = input("Enter name of input file: ")
