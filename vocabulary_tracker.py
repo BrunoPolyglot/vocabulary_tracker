@@ -8,7 +8,11 @@ lang = input("choose a language: \ng__German\ns__swedish\ni__Italian\nv__Vietnam
 #German
 if lang == "g":
     #opening the files
-    option = input("choose:\nc___count all words\nw___count unkown words\nr___save known words")
+    option = input("|-------------------------------|"
+                 "\n|_type|___choose one option:____|"
+                 "\n|__c__|____count all words______|"
+                 "\n|__w__|__count unkown words_____|"
+                 "\n|__r__|___save known words______|")
 
     with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
 
@@ -39,7 +43,7 @@ if lang == "g":
 
 
                 filename = input("Enter name of input file: ")
-                inputfile = open("/home/bruno/projects/languages/" + filename)
+                inputfile = open("~/vocabulary_tracker/" + filename)
 
 
                 read_file = inputfile.read()
