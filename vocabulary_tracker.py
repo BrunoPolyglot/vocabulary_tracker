@@ -37,25 +37,34 @@ if lang == "g":
 
         #this option show how many times each word appears in the text
         if option == "c":
+            #the user has to enter a valid file name, if he does not, a message will be displayed 
+            while True:
+                for option in range(3):
+                    #open a file
+                    word_count= {}
+                    filename = input("Enter name of input file: ")
+                    try:
+                        inputfile = open(filename)
+                    except FileNotFoundError:
+                        print("Please type a valid file's name.")
+                else:
+                    print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
+                break
 
-            
-            #open a file
-            word_count= {}
-            filename = input("Enter name of input file: ")
-            inputfile = open(filename)
+
 
 
             #cleaning the words before counting them
-            read_file = inputfile.read()
-            file_list = read_file.split()
-            for line in file_list:
-                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
-                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                if line in word_count:
-                    word_count[line] += 1
-                else:
-                    word_count[line] = 1
-            sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+                read_file = inputfile.read()
+                file_list = read_file.split()
+                for line in file_list:
+                    line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
+                    line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                    if line in word_count:
+                        word_count[line] += 1
+                    else:
+                        word_count[line] = 1
+                sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
 
 
 
