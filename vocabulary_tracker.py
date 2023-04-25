@@ -36,36 +36,39 @@ if lang == "g":
 
 
         #this option show how many times each word appears in the text
+
         if option == "c":
+
             #the user has to enter a valid file name, if he does not, a message will be displayed 
+
             while True:
-                for option in range(3):
+                for i in range(3):
                     #open a file
+
                     word_count= {}
                     filename = input("Enter name of input file: ")
                     try:
                         inputfile = open(filename)
-                    except FileNotFoundError:
-                        print("Please type a valid file's name.")
-                else:
-                    print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
-                break
-
-
-
-
-            #cleaning the words before counting them
-                read_file = inputfile.read()
-                file_list = read_file.split()
-                for line in file_list:
-                    line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
-                    line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                    if line in word_count:
-                        word_count[line] += 1
+                        read_file = inputfile.read()
+                        file_list = read_file.split()
+                    except FileNotFoundError:             
+                        print("Please make sure that the file's name is correct.")
+                        continue
                     else:
-                        word_count[line] = 1
-                sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
 
+                    #cleaning the words before counting them
+
+                        for line in file_list:
+                            line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
+                            line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                            if line in word_count:
+                                word_count[line] += 1
+                            else:
+                                word_count[line] = 1
+                        sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+                        print(sorted_word_count)
+                else:
+                    break
 
 
         if option == "w":
@@ -87,6 +90,8 @@ if lang == "g":
                     filename = input("Enter name of input file: ")
                     try:
                         inputfile = open(filename)
+                        read_file = inputfile.read()
+                        file_list = read_file.split()
                     except FileNotFoundError:
                         print("Please type a valid file's name.")
                 else:
@@ -95,47 +100,38 @@ if lang == "g":
 
 
 
-            read_file = inputfile.read()
-            file_list = read_file.split()
+            
+            
             for line in file_list:
                 line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
                 line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-
                 if line not in vocab_split:
                     count[line] += 1
             sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
-
-
             print(sorted_word_count)         
 
 
 
         if option == "r":
-            
-                #lists
-                clean_list = list()
-                word_list = list()
-                words = list()
-                newone =list()
-                d = dict()
-                total = 0
-                new = 0
-                known = 0
-                data = 0
-                #spliting files
-                #vocab
-                read_vocab = vocab.read()
-                vocab_split = read_vocab.split()
-
-
-                #new words
-                read_new_vocab = new_vocab.read()
-                new_vocab_split = read_new_vocab.split()
-
-
-                #open a fileg
-
-                while True:
+            #lists
+            clean_list = list()
+            word_list = list()
+            words = list()
+            newone =list()
+            d = dict()
+            total = 0
+            new = 0
+            known = 0
+            data = 0
+            #spliting files
+            #vocab
+            read_vocab = vocab.read()
+            vocab_split = read_vocab.split()
+            #new words
+            read_new_vocab = new_vocab.read()
+            new_vocab_split = read_new_vocab.split()
+            #open a fileg
+            while True:
                 for option in range(3):
                     #open a file
                     word_count= {}
@@ -146,60 +142,49 @@ if lang == "g":
                         print("Please type a valid file's name.")
                 else:
                     print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
-                break
-
-
+                    break
                 read_file = inputfile.read()
                 file_list = read_file.split()
-
-                #clean file
-                for i in range(len(file_list)):
-                    line = file_list[i].strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
-                    line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                    file_list[i] = line
-                #count words
-                    if line not in words:
-                        total += 1
-                        words.append(line)
-                        if line in vocab_split:
-                            known += 1
-                        else:
-                            new += 1
-                            newone.append(line)
-
-                #count words in database
-                data = len(vocab_split)
-
-                print("\nnew words: ",new, "\nknown words: ",known, "\ntotal of words: ",total)
-
-
-
-                chunks = zip_longest(*[iter(newone)] * 20)
-
-                for chunk in chunks:
-                    print(chunk)
-                    num_list = new - 20
-                    rec = input("type the words that you know from the list: ")
-                    rec_split = rec.split()
-
-                    for palabra in chunk:
-                        if palabra == None:
-                            pass
-                        elif palabra in rec_split:
-                            if palabra not in vocab_split:
-                                vocab.write(palabra + '\n')
-                            else:
-                                pass
-                        else:
-                            new_vocab.write(palabra + '\n')
-                    cont = input("do you want to continue?(y/n")
-                    if cont == 'y':
-                        continue
+            #clean file
+            for i in range(len(file_list)):
+                line = file_list[i].strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
+                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                file_list[i] = line
+            #count words
+                if line not in words:
+                    total += 1
+                    words.append(line)
+                    if line in vocab_split:
+                        known += 1
                     else:
-                        break
-
+                        new += 1
+                        newone.append(line)
+            #count words in database
+            data = len(vocab_split)
+            print("\nnew words: ",new, "\nknown words: ",known, "\ntotal of words: ",total)
+            chunks = zip_longest(*[iter(newone)] * 20)
+            for chunk in chunks:
+                print(chunk)
+                num_list = new - 20
+                rec = input("type the words that you know from the list: ")
+                rec_split = rec.split()
+                for palabra in chunk:
+                    if palabra == None:
+                        pass
+                    elif palabra in rec_split:
+                        if palabra not in vocab_split:
+                            vocab.write(palabra + '\n')
+                        else:
+                            pass
+                    else:
+                        new_vocab.write(palabra + '\n')
+                cont = input("do you want to continue?(y/n")
+                if cont == 'y':
+                    continue
+                else:
+                    break
+    
         
-            
         
             
 
