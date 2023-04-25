@@ -80,9 +80,19 @@ if lang == "g":
 
 
                 #open a file
+            while True:
+                for option in range(3):
+                    #open a file
+                    word_count= {}
+                    filename = input("Enter name of input file: ")
+                    try:
+                        inputfile = open(filename)
+                    except FileNotFoundError:
+                        print("Please type a valid file's name.")
+                else:
+                    print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
+                break
 
-            filename = input("Enter name of input file: ")
-            inputfile = open(filename)
 
 
             read_file = inputfile.read()
@@ -125,9 +135,18 @@ if lang == "g":
 
                 #open a fileg
 
-
-                filename = input("Enter name of input file: ")
-                inputfile = open(filename)
+                while True:
+                for option in range(3):
+                    #open a file
+                    word_count= {}
+                    filename = input("Enter name of input file: ")
+                    try:
+                        inputfile = open(filename)
+                    except FileNotFoundError:
+                        print("Please type a valid file's name.")
+                else:
+                    print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
+                break
 
 
                 read_file = inputfile.read()
