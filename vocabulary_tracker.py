@@ -25,7 +25,12 @@ lang = input("|--------------------------------|"
 #German
 if lang == "g":
     #opening the files
-    option = input("choose:\nc___count all words\nw___count unkown words\nr___save known words")
+    option = input("|--------------------------------|"
+                 "\n|_Tyoe|____Choose_one_option_____|"
+                 "\n|__c__|____count all words_______|"
+                 "\n|__w__|___count unkown words_____|"
+                 "\n|__r__|____save known words______|"
+                 "\n|--------------------------------|")
 
     with open("/home/bruno/projects/languages/data/german_vocabulary_database.txt", "r+") as vocab, open("/home/bruno/projects/languages/data/german_unkown_words.txt", "r+") as new_vocab:
 
