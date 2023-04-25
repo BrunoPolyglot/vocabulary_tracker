@@ -32,7 +32,7 @@ if lang == "g":
                  "\n|__r__|____save known words______|"
                  "\n|--------------------------------|")
 
-    with open("~/german_vocabulary_database.txt", "r+") as vocab, open("~/german_unkown_words.txt", "r+") as new_vocab:
+    with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
 
 
         #this option show how many times each word appears in the text
@@ -171,7 +171,7 @@ if lang == "g":
                         break
 
         
-            print(sorted_word_count)
+            
         
             
 
