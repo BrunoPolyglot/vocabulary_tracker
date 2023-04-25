@@ -32,7 +32,64 @@ if lang == "g":
                  "\n|__r__|____save known words______|"
                  "\n|--------------------------------|")
 
-    with open("/home/bruno/projects/languages/data/german_vocabulary_database.txt", "r+") as vocab, open("/home/bruno/projects/languages/data/german_unkown_words.txt", "r+") as new_vocab:
+    with open("~/german_vocabulary_database.txt", "r+") as vocab, open("~/german_unkown_words.txt", "r+") as new_vocab:
+
+
+        #this option show how many times each word appears in the text
+        if option == "c":
+
+            
+            #open a file
+            word_count= {}
+            filename = input("Enter name of input file: ")
+            inputfile = open(filename)
+
+
+            #cleaning the words before counting them
+            read_file = inputfile.read()
+            file_list = read_file.split()
+            for line in file_list:
+                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
+                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                if line in word_count:
+                    word_count[line] += 1
+                else:
+                    word_count[line] = 1
+            sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+
+
+
+        if option == "w":
+            count= collections.defaultdict(int)
+            read_vocab = vocab.read()
+            vocab_split = read_vocab.split()
+
+
+                #new words
+            read_new_vocab = new_vocab.read()
+            new_vocab_split = read_new_vocab.split()
+
+
+                #open a file
+
+            filename = input("Enter name of input file: ")
+            inputfile = open(filename)
+
+
+            read_file = inputfile.read()
+            file_list = read_file.split()
+            for line in file_list:
+                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
+                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+
+                if line not in vocab_split:
+                    count[line] += 1
+            sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
+
+
+            print(sorted_word_count)         
+
+
 
         if option == "r":
             
@@ -61,7 +118,7 @@ if lang == "g":
 
 
                 filename = input("Enter name of input file: ")
-                inputfile = open("/home/bruno/projects/languages/" + filename)
+                inputfile = open(filename)
 
 
                 read_file = inputfile.read()
@@ -113,57 +170,9 @@ if lang == "g":
                     else:
                         break
 
-        if option == "c":
-
-            
-
-            #open a file
-
-            word_count= {}
-            filename = input("Enter name of input file: ")
-            inputfile = open("/home/bruno/projects/languages/" + filename)
-
-
-            read_file = inputfile.read()
-            file_list = read_file.split()
-            for line in file_list:
-                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
-                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                if line in word_count:
-                    word_count[line] += 1
-                else:
-                    word_count[line] = 1
-            sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+        
             print(sorted_word_count)
-        if option == "w":
-            count= collections.defaultdict(int)
-            read_vocab = vocab.read()
-            vocab_split = read_vocab.split()
-
-
-                #new words
-            read_new_vocab = new_vocab.read()
-            new_vocab_split = read_new_vocab.split()
-
-
-                #open a file
-
-            filename = input("Enter name of input file: ")
-            inputfile = open("/home/bruno/projects/languages/" + filename)
-
-
-            read_file = inputfile.read()
-            file_list = read_file.split()
-            for line in file_list:
-                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
-                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-
-                if line not in vocab_split:
-                    count[line] += 1
-            sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
-
-
-            print(sorted_word_count)           
+        
             
 
 #swedish
