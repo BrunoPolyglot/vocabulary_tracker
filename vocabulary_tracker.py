@@ -40,34 +40,32 @@ if lang == "g":
         if option == "c":
 
             #the user has to enter a valid file name, if he does not, a message will be displayed 
-
-            while True:
-                for i in range(3):
+            max_tries = 3
+            num_tries = 0
+            while num_tries < max_tries:
+                num_tries += 1
                     #open a file
 
-                    word_count= {}
-                    filename = input("Enter name of input file: ")
-                    try:
-                        inputfile = open(filename)
-                        read_file = inputfile.read()
-                        file_list = read_file.split()
-                    except FileNotFoundError:             
-                        print("Please make sure that the file's name is correct.")
-                        continue
-                    else:
-
-                    #cleaning the words before counting them
-
-                        for line in file_list:
-                            line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
-                            line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                            if line in word_count:
-                                word_count[line] += 1
-                            else:
-                                word_count[line] = 1
-                        sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
-                        print(sorted_word_count)
+                word_count= {}
+                filename = input("Enter name of input file: ")
+                try:
+                    inputfile = open(filename)
+                    read_file = inputfile.read()
+                    file_list = read_file.split()
+                except FileNotFoundError:             
+                    print("Please make sure that the file's name is correct.")
+                    continue
                 else:
+                #cleaning the words before counting them
+                    for line in file_list:
+                        line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
+                        line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                        if line in word_count:
+                            word_count[line] += 1
+                        else:
+                            word_count[line] = 1
+                    sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
+                    print(sorted_word_count)
                     break
 
 
@@ -75,40 +73,40 @@ if lang == "g":
             count= collections.defaultdict(int)
             read_vocab = vocab.read()
             vocab_split = read_vocab.split()
+            max_tries = 3
+            num_tries = 0
 
 
-                #new words
+            #new words
+
             read_new_vocab = new_vocab.read()
             new_vocab_split = read_new_vocab.split()
+    
+            #open a file
 
-
+            while num_tries < max_tries:
+                num_tries += 1
                 #open a file
-            while True:
-                for option in range(3):
-                    #open a file
-                    word_count= {}
-                    filename = input("Enter name of input file: ")
-                    try:
-                        inputfile = open(filename)
-                        read_file = inputfile.read()
-                        file_list = read_file.split()
-                    except FileNotFoundError:
-                        print("Please type a valid file's name.")
+                word_count= {}
+                filename = input("Enter name of input file: ")
+                try:
+                    inputfile = open(filename)
+                    read_file = inputfile.read()
+                    file_list = read_file.split()
+                except FileNotFoundError:             
+                    print("Please make sure that the file's name is correct.")
+                    continue
                 else:
-                    print("please checkout the name of your file again or make sure that the file is in the same directory of the code and try again later.")
-                break
-
-
-
+                    for line in file_list:
+                        line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
+                        line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                        if line not in vocab_split:
+                            count[line] += 1
+                    sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
+                    print(sorted_word_count) 
+                    break
             
-            
-            for line in file_list:
-                line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
-                line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                if line not in vocab_split:
-                    count[line] += 1
-            sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
-            print(sorted_word_count)         
+                          
 
 
 
@@ -130,6 +128,7 @@ if lang == "g":
             #new words
             read_new_vocab = new_vocab.read()
             new_vocab_split = read_new_vocab.split()
+
             #open a fileg
             while True:
                 for option in range(3):
