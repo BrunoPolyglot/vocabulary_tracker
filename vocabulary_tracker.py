@@ -112,7 +112,9 @@ if lang == "g":
 
 
         if option == "r":
+
             #lists
+
             clean_list = list()
             word_list = list()
             words = list()
@@ -127,9 +129,12 @@ if lang == "g":
 
             #spliting files
             #vocab
+
             read_vocab = vocab.read()
             vocab_split = read_vocab.split()
+
             #new words
+
             read_new_vocab = new_vocab.read()
             new_vocab_split = read_new_vocab.split()
 
@@ -139,6 +144,7 @@ if lang == "g":
                 num_tries += 1
 
                 #open a file
+
                 word_count= {}
                 filename = input("Enter name of input file: ")
                 try:
@@ -194,6 +200,7 @@ if lang == "g":
                         else:
                             break
                     break
+       
                         
                         
                         
@@ -499,3 +506,7 @@ if lang == "d":
     swedish_vocab.close()
     italin_vocab.close()
     viet_vocab.close()
+
+
+else:
+    print("you did not type a valid letter!")
