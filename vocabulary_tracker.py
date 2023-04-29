@@ -1,6 +1,5 @@
 import re
 from itertools import zip_longest
-import binascii
 import collections
 
 
@@ -13,13 +12,10 @@ lang = input("|-------------------------|"
          "\n|__f___|_-French____________|"
          "\n|__a___|_-Spanish___________|"
          "\n|__p___|_-Portuguese________|"
-         "\n|__e___|_-English___________|____|"
-         "\n|--------------------------------|"
-         "\n|______|_GENERAL_INFORMATION_____|"
-         "\n|___d__|______database___________|"
-         "\n|___u__|______unkown words_______|"
-         "\n|--------------------------------|"
-         "\n"
+         "\n|__e___|_-English___________|"
+         "\n|---------------------------|"
+         "\n|___d__|DATABASE_INFORMATION|"
+         "\n-----------------------------"
          "\n Please type the letter of your choice:\n")
 
 #---------------------------------GERMAN-----------------------------------------
@@ -135,7 +131,7 @@ if lang == "g":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
             
 #-----------------------SWEDISH---------------------
@@ -184,7 +180,7 @@ if lang == "s":
 
             count= collections.defaultdict(int)
             for line in file_list:
-                line = line.replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
+                line = line.strip().lower().replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
                 line = (re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line))
                 words_book.append(line)
 
@@ -251,7 +247,7 @@ if lang == "s":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
             
 #---------------------ITALIAN----------------------
@@ -300,8 +296,9 @@ if lang == "i":
 
             count= collections.defaultdict(int)
             for line in file_list:
-                line = line.replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
-                line = (re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line))
+                line = line.strip().lower()
+                line = re.sub(r"^.*?['`]", '', line)
+                line = (re.sub('[^A-Za-zùàìèò]', '', line))
                 words_book.append(line)
 
 #creating lists for the vocabulary, unkown words and the book
@@ -367,7 +364,7 @@ if lang == "i":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
 
 
@@ -417,8 +414,9 @@ if lang == "f":
 
             count= collections.defaultdict(int)
             for line in file_list:
-                line = line.replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
-                line = (re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line))
+                line = re.sub(r"^.*?['`]", '', line)
+                line = line.lower().strip()
+                line = (re.sub('[^A-Za-zùàçèé]', '', line))
                 words_book.append(line)
 
 #creating lists for the vocabulary, unkown words and the book
@@ -484,7 +482,7 @@ if lang == "f":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
             
 #--------------------SPANISH----------------------
@@ -535,8 +533,8 @@ if lang == "a":
 
             count= collections.defaultdict(int)
             for line in file_list:
-                line = line.replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
-                line = (re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line))
+                line = line.strip().lower()
+                line = (re.sub('[^A-Za-záéíóúüñ]', '', line))
                 words_book.append(line)
 
 #creating lists for the vocabulary, unkown words and the book
@@ -602,7 +600,7 @@ if lang == "a":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
 #-------------------------PORTUGUESE-------------------            
 
@@ -652,8 +650,8 @@ if lang == "p":
 
             count= collections.defaultdict(int)
             for line in file_list:
-                line = line.replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
-                line = (re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line))
+                line = line.strip().lower()
+                line = (re.sub('[^A-Za-zàáâãäéêëíîïóôõöúûüç]', '', line))
                 words_book.append(line)
 
 #creating lists for the vocabulary, unkown words and the book
@@ -719,7 +717,7 @@ if lang == "p":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
 
 #---------------------ENGLISH------------------------
@@ -836,5 +834,131 @@ if lang == "e":
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
             print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the books:",total,
+                  "\nthe number of words in the book:",total,
                   "\n capicity of reading:", formatted_percent, "%")
+            
+if lang == 'd':
+    uenglish_count = 0
+    ufrench_count = 0
+    ugerman_count = 0
+    uitalian_count = 0
+    uportuguese_count = 0
+    uspanish_count = 0
+    uswedish_count = 0
+    with open("english_unkown_words.txt","r+") as unkown_english, \
+         open("english_vocabulary_database.txt","r+") as database_english, \
+         open("french_unkown_words.txt","r+") as unkown_french, \
+         open("french_vocabulary_database.txt", "r+") as database_french, \
+         open("german_unkown_words.txt" , "r+") as unkown_german, \
+         open("german_vocabulary_database.txt", "r+") as database_german, \
+         open("italian_unkown_words.txt", "r+") as unkown_italian, \
+         open("italian_vocabulary_database.txt","r+") as database_italian, \
+         open("portuguese_unkown_words.txt","r+") as unkown_portuguese, \
+         open("portuguese_vocabulary_database.txt","r+") as database_portuguese, \
+         open("spanish_unkown_words.txt","r+") as unkown_spanish, \
+         open("spanish_vocabulary_database.txt","r+") as database_spanish, \
+         open("swedish_unkown_words.txt","r+") as unkown_swedish, \
+         open("swedish_vocabulary_database.txt","r+") as database_swedish:
+
+
+        read_vocab = unkown_english.read()
+        unkown_english_split = read_vocab.split()
+
+        read_vocab = unkown_french.read()
+        unkown_french_split = read_vocab.split()
+
+        read_vocab = unkown_german.read()
+        unkown_german_split = read_vocab.split()
+
+        read_vocab = unkown_italian.read()
+        unkown_italian_split = read_vocab.split()
+
+        read_vocab = unkown_portuguese.read()
+        unkown_portuguese_split = read_vocab.split()
+
+        read_vocab = unkown_spanish.read()
+        unkown_spanish_split = read_vocab.split()
+
+        read_vocab = unkown_swedish.read()
+        unkown_swedish_split = read_vocab.split()
+
+        for word in unkown_english_split:
+            uenglish_count += 1
+        for word in unkown_french_split:
+            ufrench_count += 1
+        for word in unkown_german_split:
+            ugerman_count += 1
+        for word in unkown_italian_split:
+            uitalian_count += 1
+        for word in unkown_portuguese_split:
+            uportuguese_count += 1
+        for word in unkown_spanish_split:
+            uspanish_count += 1
+        for word in unkown_swedish_split:
+            uswedish_count += 1
+
+        denglish_count = 0
+        dfrench_count = 0
+        dgerman_count = 0
+        ditalian_count = 0
+        dportuguese_count = 0
+        dspanish_count = 0
+        dswedish_count = 0
+
+        read_vocab = database_english.read()
+        database_english_split = read_vocab.split()
+
+        read_vocab = database_french.read()
+        database_french_split = read_vocab.split()
+
+        read_vocab = database_german.read()
+        database_german_split = read_vocab.split()
+
+        read_vocab = database_italian.read()
+        database_italian_split = read_vocab.split()
+
+        read_vocab = database_portuguese.read()
+        database_portuguese_split = read_vocab.split()
+
+        read_vocab = database_spanish.read()
+        database_spanish_split = read_vocab.split()
+
+        read_vocab = database_swedish.read()
+        database_swedish_split = read_vocab.split()
+
+        for word in database_english_split:
+            denglish_count += 1
+        for word in database_french_split:
+            dfrench_count += 1
+        for word in database_french_split:
+            dgerman_count += 1
+        for word in database_italian_split:
+            ditalian_count += 1
+        for word in database_portuguese_split:
+            dportuguese_count += 1
+        for word in database_spanish_split:
+            dspanish_count += 1
+        for word in database_swedish_split:
+            dswedish_count += 1
+
+        
+
+
+
+
+        print("here is the list of languages and the number of words that you know:",
+              "\nENGLISH:    ",denglish_count,
+              "\nFRENCH:     ",dfrench_count,
+              "\nGERMAN:     ",dgerman_count,
+              "\nITALIAN:    ",ditalian_count,
+              "\nPORTUGUESE: ",dportuguese_count,
+              "\nSPANISH:    ",dspanish_count,
+              "\nSWEDISH:    ",dswedish_count,
+              "\n\nhere is the list of unkown words that you saved:"
+              "\nENGLISH:    ",uenglish_count,
+              "\nFRENCH:     ",ufrench_count,
+              "\nGERMAN:     ",ugerman_count,
+              "\nITALIAN:    ",uitalian_count,
+              "\nPORTUGUESE: ",uportuguese_count,
+              "\nSPANISH:    ",uspanish_count,
+              "\nSWEDISH:    ",uswedish_count,)
