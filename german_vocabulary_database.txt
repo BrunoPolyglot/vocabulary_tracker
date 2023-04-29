@@ -1,3 +1,4 @@
+test
 hier
 ist
 ein
@@ -13,10 +14,10 @@ die
 sprache
 in
 deutschland
+österreich
 der
 luxemburg
 und
-südtirol
 italien
 es
 ist
@@ -52,3 +53,8 @@ zur
 philosophie
 und
 technologie
+geleistet
+geschichte
+liechtenstein
+beiträge
+amtssprache

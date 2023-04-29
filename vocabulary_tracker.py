@@ -39,15 +39,15 @@ if lang == "g":
                  "\n"
                  "\n Please type the letter of your choice:\n")
 
-    with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
+    
 
 
 #this option show how many times each word appears in the text
 
-        if option == "c":
-
-#the user has to enter a valid file name, if he does not, a message will be displayed 
-            
+    if option == "c":
+        with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
+#the usr has to enter a valid file name, if he does not, a message will be displayed 
+        
             word_count= {}
             filename = input("Enter name of input file: ")
             try:
@@ -57,9 +57,7 @@ if lang == "g":
             except FileNotFoundError:             
                 print("Please make sure that the file's name is correct.")
             else:
-
-#cleaning the words before counting them
-
+#cleanig     the words before counting them
                 for line in file_list:
                     line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "")
                     line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
@@ -69,21 +67,17 @@ if lang == "g":
                         word_count[line] = 1
                 sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
                 print(sorted_word_count)
-
-
-        if option == "w":
+    
+    if option == "w":
+        with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
             count= collections.defaultdict(int)
             read_vocab = vocab.read()
             vocab_split = read_vocab.split()
-
-
-#new words
-
+#new wod    s
             read_new_vocab = new_vocab.read()
             new_vocab_split = read_new_vocab.split()
-    
-#open a file
 
+#open af    ile
             word_count= {}
             filename = input("Enter name of input file: ")
             try:
@@ -101,134 +95,107 @@ if lang == "g":
                     if line not in vocab_split:
                         count[line] += 1
                 sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
-                print(sorted_word_count) 
-            
-                          
+                print(sorted_word_count)                       
+    
+                      
+    if option == "r":
+        with open("/home/bruno/project/vocabulary_tracker/german_vocabulary_database.txt", "r+", encoding='utf-8') as vocab, open("/home/bruno/project/vocabulary_tracker/german_unkown_words.txt", "r+", encoding='utf-8') as new_vocab:
+#variabes
+            vocab_split = []
+            new_vocab_split = []
+            file_list = []
+            vocab_count = []
 
-        if option == "r":
-            with open("german_vocabulary_database.txt", "r+") as vocab, open("german_unkown_words.txt", "r+") as new_vocab:
+#splitig files
+    #voab  
+            vocab_split = set(vocab.read().split())
+            new_vocab_split = set(new_vocab.read().split())
+    #opn a file
+            filename = input("Enter name of input file: ")
 
-#variables
-
-                clean_list = list()
-                word_list = list()
-                num_list = list()
-                vocab_split = list()
-
-
-
-#spliting fi    les
-    #vocab  
-
-                read_vocab = vocab.read()
-                vocab_split = read_vocab.split()
-    #new wor    ds
-
-                read_new_vocab = new_vocab.read()
-                new_vocab_split = read_new_vocab.split()
-
-    #open a     file
-
-                filename = input("Enter name of input file: ")
-                try:
-                    inputfile = open(filename)
-                    read_file = inputfile.read()
-                    file_list = read_file.split()
-                except FileNotFoundError:
-                    print("Please make sure that the file's name is correct.")
-                else:                 
-                
-#clean file 
-
-                    for i in range(len(file_list)):
-                        line = file_list[i].strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
-                        line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                        file_list[i] = line
+            try:
 
 
-                    vocab_set = set(vocab_split)
-                    new_vocab_set = set(new_vocab_split)
-
-#count words     in database
-
-                    chunks = zip_longest(*[iter(file_list)] * 20)
-                    for chunk in chunks:
-                        chunk_words = [word for word in chunk if word and word not in vocab_set and word not in new_vocab_set]
-                        if not chunk_words:
-                            continue
-                        
-                        print(chunk)
-                        rec = input("type the words that you know from the list:")
-                        rec_split = rec.split()
-                        for word in chunk_words:
-                            if word in rec_split:
-                                if word not in vocab_set:
-                                    vocab.write(word + '\n')
-                                elif word not in new_vocab_set:
-                                    new_vocab.write(word+ '\n')
-                                else:
-                                    pass
-                                
-                        cont = input("do you want to continue?(y/n)")
-                        if cont != 'y':
-                            break
-                        
-                        
-                        
-
-        if option == "i":
-            num_tries = 0
-            max_tries = 3
-            words = list()
-            total = 0
-            known = 0
-            new = 0
-
-            while num_tries < max_tries:
-                num_tries += 1
-
-#open a file
-
-                filename = input("Enter name of input file: ")
-                try:
-                    inputfile = open(filename)
-                    read_file = inputfile.read()
-                    file_list = read_file.split()
-                except FileNotFoundError:
-                    print("Please make sure that the file's name is correct.")
-                    continue
-                else: 
-
-                    for i in range(len(file_list)):
-                        line = file_list[i].strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
-                        line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
-                        file_list[i] = line
-#counting the words
-
-                    if line not in words:
-                            total += 1
-                            words.append(line)
-                            if line in file_list:
-                                known += 1
-                            else:
-                                new += 1
-                                newone.append(line)
-                    percent = (100*known)/total
-
-
-            
-                    print("the number of unknown words in the book:",new,
-                          "\nthe number of words in the books:",total,
-                          "\n capicity of reading:", percent, "%")
-                    break
-       
-                        
-                        
-                        
-                        
-
-#swedish
-
+                inputfile = open("/home/bruno/project/vocabulary_tracker/" + filename)
+                read_file = inputfile.read()
+                file_list = read_file.split()  
+            except FileNotFoundError:
+                print("Please make sure that the file's name is correct.")   
+            else:                
+#clean ile 
+                for i in file_list:
+                    line = i.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
+                    line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                    if line not in vocab_count and line not in vocab_split and line not in new_vocab_split:
+                        vocab_count.append(line)
+                    else:
+                        pass
+                    
+#count ords        in database
+                chunks = zip_longest(*[iter(vocab_count)] * 20)
+                for chunk in chunks:                   
+                    print(chunk)
+                    rec = input("type the words that you know from the list:")
+                    rec_split = rec.split()
+                    for word in rec_split:
+                        if word in rec_split:
+                            vocab.write(word + '\n')
+                        elif word not in rec_split and word in chunks:
+                            new_vocab.write(word+ '\n')
+                        else:
+                            pass                           
+                    cont = input("do you want to continue?(y/n)").lower()
+                    if cont == 'n':
+                        break
+                    else:
+                        continue
+                    
+                    
+                    
+    if option == "i":
+        num_tries = 0
+        max_tries = 3
+        words = list()
+        total = 0
+        known = 0
+        new = 0
+        while num_tries < max_tries:
+            num_tries += 1
+#open afile
+            filename = input("Enter name of input file: ")
+            try:
+                inputfile = open(filename)
+                read_file = inputfile.read()
+                file_list = read_file.split()
+            except FileNotFoundError:
+                print("Please make sure that the file's name is correct.")
+                continue
+            else: 
+                for i in range(len(file_list)):
+                    line = file_list[i].strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é")
+                    line = re.sub('[^A-Za-zåäöüéÅÄÖß]', '', line)
+                    file_list[i] = line
+#countig the words
+                if line not in words:
+                        total += 1
+                        words.append(line)
+                        if line in file_list:
+                            known += 1
+                        else:
+                            new += 1
+                            newone.append(line)
+                percent = (100*known)/total
+        
+                print("the number of unknown words in the book:",new,
+                      "\nthe number of words in the books:",total,
+                      "\n capicity of reading:", percent, "%")
+                break
+    
+                    
+                    
+                    
+                    
+#swedis
 #if lang == "s":
 #
 ##opening the files
@@ -448,6 +415,3 @@ if lang == "d":
     swedish_vocab.close()
     italin_vocab.close()
     viet_vocab.close()
-
-else:
-    print("please try again and type a valid letter")
