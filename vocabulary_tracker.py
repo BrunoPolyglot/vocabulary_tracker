@@ -105,6 +105,8 @@ if lang == "g":
             new_vocab_split = []
             file_list = []
             vocab_count = []
+            new_split = []
+            rec_split = []
 
 #splitig files
     #voab  
@@ -137,19 +139,25 @@ if lang == "g":
                     print(chunk)
                     rec = input("type the words that you know from the list:")
                     rec_split = rec.split()
+                    new = input('Please type the words that you want to save the unkown words file:\n')
+                    new_split = new.split()
+
                     for word in rec_split:
-                        if word in rec_split:
-                            vocab.write(word + '\n')
-                        elif word not in rec_split and word in chunks:
-                            new_vocab.write(word+ '\n')
-                        else:
-                            pass                           
+                        vocab.write(str(word) + '\n')
+                    for word in new_split:
+                        new_vocab.write(str(word) + '\n')
+
                     cont = input("do you want to continue?(y/n)").lower()
                     if cont == 'n':
                         break
                     else:
                         continue
-                    
+
+    if option == "s":
+        new_vocab_split = []
+        with open("german_unkown_words.txt", "r+") as new_vocab:
+            new_vocab_split = set(new_vocab.read().split())
+            print(new_vocab_split)
                     
                     
     if option == "i":
