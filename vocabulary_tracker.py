@@ -46,6 +46,7 @@ else:
                 words_book = []
                 for line in file_list:
                     line = line.strip().lower().replace("ã¤", "ä").replace("ãÿ", "ß").replace("ã¼", "ü").replace("ã¶", "ö").replace("ã©", "é").replace(" ", "").replace("ã¥", "å").replace("ã¤", "ä").replace("ã¶", "ö")
+                    line = re.sub(r"^.*?['`]", '', line)
                     line = re.sub('[^A-Za-zåäöüéßùàìèòàçèíóñáâãêëíîïôõúû]', '', line)
                     words_book.append(line)
                 return words_book
