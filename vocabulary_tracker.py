@@ -1,6 +1,7 @@
 import re
 from itertools import zip_longest
 import pandas as pd
+import sys 
 
 
 #VARIABLES
@@ -54,6 +55,7 @@ def file_input():
         file_list = read_file.split()
     except FileNotFoundError:             
         print("Please make sure that the file's name is correct.")
+        return None
     else:
 
 #clean the words of any language in the list 
@@ -62,7 +64,7 @@ def file_input():
         for line in file_list:
             line = line.strip().lower()
             line = re.sub(r"^.*?['`]", '', line)
-            line = re.sub(r'\b\w+\b', '', line)
+            line = re.sub(r'^A-Za-zåäöüéßùàìèòàçèíóñáâãêëíîïôõúû', '', line)
             words_book.append(line)
         return words_book
     
@@ -112,9 +114,12 @@ else:
 #returning the data from the function file_input and making it a list 
 
         words_book = file_input()      
-        vocab_split, new_vocab_split = read_vocab(vocab, new_vocab)
+        if words_book is None:
+            sys.exit()
+        else:
+            vocab_split, new_vocab_split = read_vocab(vocab, new_vocab)
 
-#countig all the words from the book 
+    #countig all the words from the book 
 
         if option == "c":
             for line in words_book:
