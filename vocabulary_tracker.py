@@ -2,6 +2,9 @@ import re
 from itertools import zip_longest
 import pandas as pd
 
+
+#VARIABLES
+
 languages = {
     "english": {"unknown_words": 0,"vocabulary_database":0},
     "french": {"unknown_words":0,"vocabulary_database":0},
@@ -19,6 +22,8 @@ word_count = {}
 words_book = []
 new_words = []
 words_book = []
+vocab_split = []
+new_vocab_split = []
 total = 0
 new = 0 
 percent = 0 
@@ -61,10 +66,10 @@ def file_input():
             words_book.append(line)
         return words_book
     
+    
 #read the vocabularies 
 def read_vocab(vocab, new_vocab):    
-    vocab_split = []
-    new_vocab_split = []
+    
     vocab_split = vocab.read().split()
     new_vocab_split = new_vocab.read().split()
     return vocab_split, new_vocab_split
@@ -80,7 +85,8 @@ lang = input(
          "\nENGLISH"
          "\nDATABASE\n").lower()
 
-#opnening all the files to give how many words there are in order to compare vocabularies         
+#opnen all the files to give how many words there are in order to compare vocabularies        
+#  
 if lang == 'database':
     
     for lang, files in languages.items():
@@ -98,17 +104,18 @@ if lang == 'database':
 elif lang not in languages:
     print("Please write a valid language")
 else:
-    with open(f"data/{lang}_vocabulary_database.txt", "r+") as vocab, open(f"data/{lang}_unkown_words.txt", "r+") as new_vocab:
+    with open(f"data/{lang}_vocabulary_database.txt", "r+") as vocab, open(f"data/{lang}_unknown_words.txt", "r+") as new_vocab:
         
 #----------------------------------Languages-----------------------------------------
-
         option = display()
-#variables
         
 #returning the data from the function file_input and making it a list 
-        words_book = list(file_input())        
+
+        words_book = file_input()      
         vocab_split, new_vocab_split = read_vocab(vocab, new_vocab)
+
 #countig all the words from the book 
+
         if option == "c":
             for line in words_book:
                 if line in word_count:
@@ -117,7 +124,9 @@ else:
                     word_count[line] = 1
             sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
             print(sorted_word_count)
-#countig all the unkown words in the book
+
+#count all the unkown words in the book
+
         elif option == "w":
             for line in words_book:
                 if line not in vocab_split:
@@ -126,8 +135,10 @@ else:
                     else:
                         count[line] = 1
             sorted_word_count = sorted(count.items(),key=lambda x: x[1],reverse=False)
-            print(sorted_word_count)      
-#displaing all words for recognition that are neither in the vocabulary file nor in the unkown words file
+            print(sorted_word_count)  
+
+#display all words for recognition that are neither in the vocabulary file nor in the unkown words file
+
         elif option == "r":
             for line in words_book:
                 if line not in vocab_split and line not in new_vocab_split:
@@ -149,6 +160,7 @@ else:
                 else:
                     continue
 #displaing some information about the book comparing to the database
+
         elif option == "i":
             for word in words_book:
                 total += 1
