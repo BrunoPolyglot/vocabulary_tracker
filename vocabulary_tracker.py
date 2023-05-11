@@ -24,12 +24,14 @@ words_book = []
 new_words = []
 words_book = []
 vocab_split = []
+count_book = []
 new_vocab_split = []
-total = 0
-new = 0 
-percent = 0 
-known = 0
 formatted_percent = 0
+
+count_info = {
+    "words_with_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity of reading":0},
+    "words_without_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity of reading":0},
+}
      
 
 
@@ -76,6 +78,16 @@ def read_vocab(vocab, new_vocab):
     new_vocab_split = new_vocab.read().split()
     return vocab_split, new_vocab_split
 
+#count number of each word in the book 
+
+def count_word():
+    for line in words_book:
+        if line in word_count:
+            word_count[line] += 1
+        else:
+            word_count[line] = 1   
+    return word_count
+
 lang = input(
          "\n Please write one of the following language:"
          "\nGERMAN"
@@ -87,7 +99,7 @@ lang = input(
          "\nENGLISH"
          "\nDATABASE\n").lower()
 
-#opnen all the files to give how many words there are in order to compare vocabularies        
+#open all the files to give how many words there are in order to compare vocabularies        
 #  
 if lang == 'database':
     
@@ -111,7 +123,7 @@ else:
 #----------------------------------Languages-----------------------------------------
         option = display()
         
-#returning the data from the function file_input and making it a list 
+#return the data from the function file_input and create a list 
 
         words_book = file_input()      
         if words_book is None:
@@ -119,14 +131,10 @@ else:
         else:
             vocab_split, new_vocab_split = read_vocab(vocab, new_vocab)
 
-    #countig all the words from the book 
+#count all the words from the book 
 
         if option == "c":
-            for line in words_book:
-                if line in word_count:
-                    word_count[line] += 1
-                else:
-                    word_count[line] = 1
+            count_word()
             sorted_word_count = sorted(word_count.items(),key=lambda x: x[1],reverse=True)
             print(sorted_word_count)
 
@@ -164,17 +172,18 @@ else:
                     break
                 else:
                     continue
-#displaing some information about the book comparing to the database
-
+#display information about the book comparing to the database
+#!construct the dict with all the information 
         elif option == "i":
-            for word in words_book:
-                total += 1
-                if word in vocab_split:
-                    known += 1
+            count_book = count_word()
+            for key, value in count_book.items():
+                count_info['words_without_repetition']['total_of_words'] += 1
+                if key in vocab_split:
+                    count_info["words_without_repetition"]['known_words']
                 else:
                     new += 1
+            for word in words_book:
+
             percent = (100*known)/total
             formatted_percent = "{:.2f}".format(percent)
-            print("the number of unknown words in the book:",new,
-                  "\nthe number of words in the book:",total,
-                  "\n capicity of reading:", formatted_percent, "%")
+            print(count_info)
