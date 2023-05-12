@@ -16,6 +16,11 @@ languages = {
     "swedish": {"unknown_words":0,"vocabulary_database":0},
 }
 
+count_info = {
+    "words_with_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity_of_reading":0},
+    "words_without_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity_of_reading":0},
+}
+
 file_handles = {}
 count_database = {}
 count = {}
@@ -27,11 +32,10 @@ vocab_split = []
 count_book = []
 new_vocab_split = []
 formatted_percent = 0
+formatted_percent_rep = 0
 
-count_info = {
-    "words_with_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity of reading":0},
-    "words_without_repetition": {"new_words": 0, "known_words":0,"total_of_words":0, "capacity of reading":0},
-}
+
+
      
 
 
@@ -172,18 +176,30 @@ else:
                     break
                 else:
                     continue
-#display information about the book comparing to the database
-#!construct the dict with all the information 
+
+#display information about the book compared to the database
+
         elif option == "i":
             count_book = count_word()
             for key, value in count_book.items():
                 count_info['words_without_repetition']['total_of_words'] += 1
                 if key in vocab_split:
-                    count_info["words_without_repetition"]['known_words']
+                    count_info['words_without_repetition']['known_words'] += 1
                 else:
-                    new += 1
-            for word in words_book:
+                    count_info['words_without_repetition']['new_words'] += 1
 
-            percent = (100*known)/total
+            for word in words_book:
+                count_info['words_with_repetition']['total_of_words'] += 1
+                if word in vocab_split:
+                    count_info['words_with_repetition']['known_words'] += 1
+                else:
+                    count_info['words_with_repetition']['new_words'] += 1
+
+            percent = (100*count_info['words_without_repetition']['known_words'])/count_info['words_without_repetition']['total_of_words']
             formatted_percent = "{:.2f}".format(percent)
-            print(count_info)
+            count_info['words_without_repetition']['capacity_of_reading'] = formatted_percent
+            percent_rep = (100*count_info['words_with_repetition']['known_words'])/count_info['words_with_repetition']['total_of_words']
+            formatted_percent_rep = "{:.2f}".format(percent_rep)
+            count_info['words_with_repetition']['capacity_of_reading'] = formatted_percent_rep
+            df = pd.DataFrame(count_info)
+            print(df)
