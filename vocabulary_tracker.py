@@ -25,9 +25,7 @@ file_handles = {}
 count_database = {}
 count = {}
 word_count = {}
-words_book = []
 new_words = []
-words_book = []
 vocab_split = []
 count_book = []
 new_vocab_split = []
@@ -66,12 +64,13 @@ def file_input():
 
 #clean the words of any language in the list 
 
-        
+        words_book = []    
         for line in file_list:
             line = line.strip().lower()
             line = re.sub(r"^.*?['`]", '', line)
-            line = re.sub(r'^A-Za-zåäöüéßùàìèòàçèíóñáâãêëíîïôõúû', '', line)
+            line = re.sub(r'[^\w\s]', '', line)
             words_book.append(line)
+        words_book = list(filter(None, words_book))
         return words_book
     
     
